@@ -191,18 +191,16 @@ public class mainFrame extends javax.swing.JFrame {
 
     private void midButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_midButtonActionPerformed
         //Yolo button
-        System.out.println("yolo");
-        outputBox.append("\n yolo");
-        instaBar.setValue(50);
-        instaBar.setString("Installing yolo");
+        System.out.println("Unzip file");
+        outputBox.append("\n Unzipping");
+        unzipper.fileGUIunzip(System.getProperty("user.home").replace("\\", "/") + "/Desktop/adt-bundle-windows-x86_64.zip", System.getProperty("user.home").replace("\\", "/") + "/Desktop/test/", null);
     }//GEN-LAST:event_midButtonActionPerformed
 
     private void topButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topButtonActionPerformed
         //Swag test download button
         System.out.println("Downloading file");
         outputBox.append("\nDownloading test file");
-        Download.fileGUIdownload("http://ipv4.download.thinkbroadband.com/100MB.zip");
-        instaBar.setString("Downloading swag");
+        Download.fileGUIdownload("http://apache.mirror.gtcomm.net/maven/maven-3/3.2.1/binaries/apache-maven-3.2.1-bin.zip");
     }//GEN-LAST:event_topButtonActionPerformed
 
     /**
@@ -247,7 +245,7 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton midButton;
-    private javax.swing.JTextArea outputBox;
+    public static javax.swing.JTextArea outputBox;
     private javax.swing.JButton topButton;
     private javax.swing.JLabel versionText;
     private javax.swing.JProgressBar zipBar;

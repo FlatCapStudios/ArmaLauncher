@@ -15,11 +15,46 @@
  */
 
 package launcher;
-
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.progress.ProgressMonitor;
 /**
  *
  * @author a01pasto <a01.pastoukhovi@hotmail.com>
+ * @author FranklinL <franko@franklinl.com>
  */
 public class unzipper {
-    
+    public static void fileGUIunzip(final String source, final String destination, final String password) {
+        Runnable runner = new Runnable() {
+            public void run() {
+                unzip(source, destination, password);
+                }
+            };
+            Thread t = new Thread(runner, "Code Executer");
+            t.start();
+    }
+    public static void unzip(String source, String destination, String password){
+        try {
+            ZipFile zipFile = new ZipFile(source);
+            zipFile.setRunInThread(true);
+             
+            if (zipFile.isEncrypted()) {
+                zipFile.setPassword(password);
+            }
+            zipFile.extractAll(destination);
+            ProgressMonitor progressMonitor = zipFile.getProgressMonitor();
+            while(progressMonitor.getState() == ProgressMonitor.STATE_BUSY){
+                int percent = progressMonitor.getPercentDone();
+                String filename = progressMonitor.getFileName();
+                mainFrame.instaBar.setString("Unziping " + filename);
+                mainFrame.instaBar.setValue(percent);
+                System.out.println(percent);
+            }
+            if(progressMonitor.getState() == ProgressMonitor.RESULT_SUCCESS) {
+                    mainFrame.instaBar.setString("Unzip Complete");
+                    mainFrame.instaBar.setValue(0);
+                    mainFrame.outputBox.append("\nDEBUG: DONE UNZIPPING");
+                }
+        } catch (ZipException e) {}
+    }
 }

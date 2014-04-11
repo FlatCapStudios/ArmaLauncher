@@ -39,19 +39,22 @@ import org.apache.commons.io.IOUtils;
 
 public class Download {
     static double filesize;
+    static String filename;
     private static class ProgressListener implements ActionListener {
 
+        @Override
         public void actionPerformed(ActionEvent e) {
             // e.getSource() gives you the object of DownloadCountingOutputStream
             // because you set it in the overriden method, afterWrite().
             double d  = ((DownloadCountingOutputStream) e.getSource()).getByteCount();
             double dpercent = (d / filesize) * 100;
             int percent = (int) dpercent;
-            System.out.println(percent);
+            mainFrame.instaBar.setString("Downloading " + filename);
             mainFrame.instaBar.setValue(percent);
             if(percent == 100) {
                 mainFrame.instaBar.setString("Download Complete");
                 mainFrame.instaBar.setValue(0);
+                mainFrame.outputBox.append("\nDEBUG: DONE DOWNLOADING");
             }
         }
     }
@@ -105,7 +108,9 @@ public class Download {
 
             // this line give you the total length of source stream as a double.
             filesize = Double.parseDouble(dl.openConnection().getHeaderField("Content-Length"));
-
+            
+            //return filename
+            filename = fileName;
             // begin transfer by writing to dcount for download progress count. *not os.*
             IOUtils.copy(is, dcount);
 
