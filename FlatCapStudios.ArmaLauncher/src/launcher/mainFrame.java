@@ -19,7 +19,6 @@ package launcher;
  *
  * @author v.senesouma
  * @author FranklinL <franko@franklinl.com>
- * @author CalebT
  */
 public class mainFrame extends javax.swing.JFrame {
 
@@ -29,7 +28,7 @@ public class mainFrame extends javax.swing.JFrame {
     public mainFrame() {
         initComponents();
     }
-
+    public String choice;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -208,16 +207,18 @@ public class mainFrame extends javax.swing.JFrame {
     }                                         
 
     private void topButtonActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        //Swag test download button
-        System.out.println("Downloading file");
-        outputBox.append("\nDownloading test file");
-        Download.fileGUIdownload("http://apache.mirror.gtcomm.net/maven/maven-3/3.2.1/binaries/apache-maven-3.2.1-bin.zip");
+        switch(choice){
+            case "nametag mod":
+                outputBox.append("WORKS!");
+            
+        }
     }                                         
 
     private void modListActionPerformed(java.awt.event.ActionEvent evt) {                                        
         // TODO add your handling code here:
         String userChoice = (String) modList.getSelectedItem();
         outputBox.append(userChoice);
+        choice = userChoice;
     }                                       
 
     /**
